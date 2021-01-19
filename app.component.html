@@ -1,0 +1,70 @@
+<div style="text-align: center;">
+  <h2>Laptops</h2>
+  <button type="button" class="btn btn-success" (click)="open(content)">Crear Nueva Laptop</button>
+  <table class="table">
+
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of collection.data | paginate: config">
+        <td>{{item.id}}</td>
+        <td>{{item.marca}}</td>
+        <td>{{item.modelo}}</td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="openeditar(content, item)">Editar</button>
+          <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)= "pageChanged($event)"></pagination-controls>
+  
+
+
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">laptop Create/update</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+
+         <form [formGroup]= "lapForm">
+           <div class="form-group">
+             <label>Id</label>
+             <input type="number" formControlName="id" class="form-control">
+           </div>
+
+           <div class="form-group">
+            <label>marca</label>
+            <input type="text" formControlName="marca" class="form-control">
+          </div>
+          
+          <div class="form-group">
+            <label>modelo</label>
+            <input type="text" formControlName="modelo" class="form-control">
+          </div>
+          
+         </form> 
+
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="guardarEstudiante()" *ngIf="!actualizar">Save</button>
+      <button type="button" class="btn btn-outline-dark" (click)="actualizarEstudiante()" *ngIf="actualizar">Actualizar</button>
+    </div>
+  </ng-template>
+ 
+</div>
+
